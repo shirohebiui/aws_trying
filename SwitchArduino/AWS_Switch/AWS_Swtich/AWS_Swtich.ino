@@ -106,8 +106,6 @@ void loop() {
     getDeviceStatus(payload);
     sendMessage(payload);
   }
-
-   
 }
 
 unsigned long getTime() {
@@ -158,20 +156,21 @@ void getDeviceStatus(char* payload) {
   if(prev[0] != led[1]) {
     flag = 1;
     prev[0] = led[1];
-    char *tmp = "N";
-    if(prev[0] == tmp[0]){
-for (pos = 0; pos <= 180; pos += 1)    // 위에 변수를 선언한 pos는 0, 180도보다 작다면 , 1도씩 더하고
+    if(strcmp(led, "ON"))
     {
-    myservo.write(pos);                            // 서보모터를 pos 각도로 움직여라
-    delay(100);                                         // 0.1초의 딜레이 ( 1초 = 1000 )
+      for (pos = 0; pos <= 180; pos += 1)    // 위에 변수를 선언한 pos는 0, 180도보다 작다면 , 1도씩 더하고
+      {
+        myservo.write(pos);                            // 서보모터를 pos 각도로 움직여라
+        delay(15);                                         // 0.1초의 딜레이 ( 1초 = 1000 )
+      }
     }
-    } else {
-
-    for (pos = 180; pos >= 0; pos -= 1)    // pos가 180이면, 0도보다 크다면 , 1도씩 빼라
+    else
     {
-    myservo.write(pos);                           // 서보모터를 pos 각도로 움직여라 
-    delay(100);                                        // 0.1초의 딜레이 ( 1초 = 1000 )
-    } 
+      for (pos = 180; pos >= 0; pos -= 1)    // pos가 180이면, 0도보다 크다면 , 1도씩 빼라
+      {
+        myservo.write(pos);                           // 서보모터를 pos 각도로 움직여라 
+        delay(15);                                   // 0.1초의 딜레이 ( 1초 = 1000 )
+      }
     }
 
   }
@@ -244,5 +243,3 @@ void onMessageReceived(int messageSize) {
     sendMessage(payload);
   }
 }
-
-
